@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin Price</title>
+    <style>
+        /* Add your CSS styles here */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bitcoin Price Information</h1>
+    <p id="last-updated"></p>
+    <p id="disclaimer"></p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Currency</th>
+                <th>Rate</th>
+            </tr>
+        </thead>
+        <tbody id="currency-data"></tbody>
+    </table>
+
+    <script>
+        fetch("https://api.coindesk.com/v1/bpi/currentprice.json")
+.then((responce) => { return responce.json() })
+.then((data) => {
+    console.log(data);
+
+
+// Assuming you have the API response data in a variable called 'data'
+const lastUpdated = document.getElementById('last-updated');
+const disclaimer = document.getElementById('disclaimer');
+const currencyData = document.getElementById('currency-data');
+
+// Display last updated time
+lastUpdated.textContent = `Last Updated: ${data.time.updated}`;
+
+// Display disclaimer
+disclaimer.textContent = data.disclaimer;
+
+// Create table rows for each currency
+for (const currency in data.bpi) {
+    const currencyInfo = data.bpi[currency];
+
+    const row = document.createElement('tr');
+    const currencyCell = document.createElement('td');
+    const rateCell = document.createElement('td');
+
+    currencyCell.textContent = `${currencyInfo.code} - ${currencyInfo.description}`;
+    rateCell.textContent = `${currencyInfo.symbol}${currencyInfo.rate_float.toFixed(2)}`;
+
+    row.appendChild(currencyCell);
+    row.appendChild(rateCell);
+    currencyData.appendChild(row);
+}
+
+})
+
+    </script>
+</body>
+</html>
