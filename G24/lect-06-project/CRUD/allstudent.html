@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Student</title>
+</head>
+
+<body>
+    <h1>all student data</h1>
+
+    <script>
+        document.getElementsByTagName("h1")[0].innerHTML = "vikas patel";
+        fetch("http://localhost:3000")
+            .then((responce) => { return responce.json() })
+            .then((data) => {
+                console.log(data);
+
+                const table = document.createElement('table');
+                const tableBody = document.createElement('tbody');
+
+                data.forEach(person => {
+                    const row = document.createElement('tr');
+                    const nameCell = document.createElement('td');
+                    const emailCell = document.createElement('td');
+
+                    nameCell.textContent = person.name;
+                    emailCell.textContent = person.email;
+
+                    row.appendChild(nameCell);
+                    row.appendChild(emailCell);
+                    tableBody.appendChild(row);
+                });
+
+                table.appendChild(tableBody);
+                document.body.appendChild(table);
+            })
+    </script>
+</body>
+
+</html>
