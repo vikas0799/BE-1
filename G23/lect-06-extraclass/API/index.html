@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- <h1>welcome to g24</h1>
+    <h1>chitkara</h1> -->
+    <h1>bitcoin price</h1>
+    <p>000000</p>
+    <p>disclaimer</p>
+
+    <script>
+    // document.getElementsByTagName("h1")[0].style.color = "red";  
+    fetch("http://localhost:3000/")
+    .then(response => response.json())
+    .then((data)=>{
+        // console.log(data.bpi.USD.rate);
+        // document.getElementsByTagName("p")[0].innerText = data.bpi.USD.rate;
+        // document.getElementsByTagName("p")[1].innerText = data.disclaimer;
+        console.log(data);
+        
+    });
+    </script>
+</body>
+</html>
